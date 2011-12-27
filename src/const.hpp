@@ -20,7 +20,6 @@
 #ifndef Const_H
 #define Const_H
 
-
 // Contraintes générales du système
 extern unsigned int nb_promoters_max;
 extern unsigned int nb_proteins_max;
@@ -32,16 +31,16 @@ extern int mode;
 
 // Taux relatifs de modifications aléatoires
 
-const double t_new_r = 1.2;//0.1
+const double t_new_r = 1.2;     //0.1
 const double t_mod_r = 2.0;
 const double t_mod_pro = 2.0;
 const double t_mod_qpromo = 2.0;
 const double t_mod_qtite = 3.0;
 const double t_mod_recept = 2.0;
-const double t_phospho = 1.2;//0.1
-const double t_new_promo = 0.3;//0.6;//0.05
+const double t_phospho = 1.2;   //0.1
+const double t_new_promo = 0.3; //0.6;//0.05
 const double t_clivage = 0.0;
-const double t_rmreact = 0.2;//0.4;//0.05
+const double t_rmreact = 0.2;   //0.4;//0.05
 const double t_dupgene = 0.0;
 const double t_mutdir = 1.8;
 
@@ -58,7 +57,7 @@ const double t_mutdir = 1.8;
 //const double t_dupgene = 0.0;
 //const double t_mutdir =1.8;
 
-extern double t_new_recept;//0.4;
+extern double t_new_recept;     //0.4;
 
 // Taux relatifs des modifications aléatoires lors de l'optimisation
 const double t_mod_r_opti = 3.0;
@@ -78,15 +77,13 @@ const double seuil_react_sup = 20.0;
 const double seuil_qtite_inf = 0.10;
 const double seuil_qtite_sup = 20.0;
 
-
 //Nombre de pas d'intégration
 extern unsigned int nb_steps;
-const int nb_steps_init = 40000; // Nb de pas d'intégration initiaux dans la procédure porte
+const int nb_steps_init = 40000;        // Nb de pas d'intégration initiaux dans la procédure porte
 const double final_time = 150.0;
 
 //Nombre de générations
 const int nb_generations_opti = 300;
-
 
 // Valeurs du comportement bistable
 const double val_haute = 1;
@@ -134,12 +131,10 @@ const int methode_int = 0;
 
 // Nb de réseaux à générer
 
-
 // Utilisation d'un réseau préexistant
-const bool use_net = false;//true;
-
+const bool use_net = false;     //true;
 
 // Exposant de Hill pour les promoteurs
 const unsigned int hill = 2;
 
-#endif /* Const_H */
+#endif                          /* Const_H */

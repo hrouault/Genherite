@@ -35,10 +35,9 @@
 #include "cellule.hpp"
 #include "integr.hpp"
 
-
 Milieu::Milieu()
 {
-    Cellule * cell;
+    Cellule *cell;
     for (unsigned int i = 0; i < pop_size; i++) {
         cell = new Cellule();
         cellules.push_back(cell);
@@ -63,7 +62,7 @@ Milieu::Milieu()
                 lab++;
             }
             if (args_info.behavior_arg == 3) {
-                Protein * prot = new Protein(0, 1);
+                Protein *prot = new Protein(0, 1);
                 prot->phosphosite = new Phosphosite();
                 prot->composants.push_back(new Composant(prot, 1));
                 prot->label = "X";
@@ -75,7 +74,7 @@ Milieu::Milieu()
                 cell->proteins.push_back(prot);
             }
             if (behavior == 5 || behavior == 7) {
-                Protein * prot = new Protein(0, 1);
+                Protein *prot = new Protein(0, 1);
                 prot->phosphosite = new Phosphosite();
                 prot->composants.push_back(new Composant(prot, 1));
                 prot->label = "X";
@@ -92,38 +91,38 @@ Milieu_System::Milieu_System()
     double value1 = frand2();
     double value2 = frand2();
     /*   if (value1<value2){
-          value1/=4;
-          value2*=4;
+       value1/=4;
+       value2*=4;
        } else {
-          value2/=4;
-          value1*=4;
-       }*/
-    System * sys;
+       value2/=4;
+       value1*=4;
+       } */
+    System *sys;
     for (unsigned int i = 0; i < pop_size; i++) {
         sys = new System();
         sys->concinit.push_back(value1);
         sys->concinit.push_back(value2);
         systems.push_back(sys);
         /*      Cellule *cell=sys->cellule;
-              Protein *prots=cell->proteins[1];
-              Protein *protc=cell->proteins[0];
-              Protein *protp=protc->addphospho();
-              cell->proteins.push_back(protp);
-              sys->recepteurs.push_back(new Recepteur(prots,protc,protp));
-              Protein *protp2=prots->addphospho();
-              cell->proteins.push_back(protp2);
-              Reaction *react;
-              react=new Reaction(cell->proteins[3],prots,cell->proteins[3],protp2,1);
-              cell->reactions.push_back(react);
-              //react=new Reaction(protp,prots,protp,NULL,1);
-              //cell->reactions.push_back(react);
-              Gene *gene=cell->genes[1];
-              cell->addpromotion(gene,protp);
-              gene=cell->genes[0];
-              cell->addpromotion(gene,protp);
-              //react=new Reaction(protp,prots,NULL,NULL,1);
-              //cell->reactions.push_back(react);
-        //      cell->adddimere(protp,prots); */
+           Protein *prots=cell->proteins[1];
+           Protein *protc=cell->proteins[0];
+           Protein *protp=protc->addphospho();
+           cell->proteins.push_back(protp);
+           sys->recepteurs.push_back(new Recepteur(prots,protc,protp));
+           Protein *protp2=prots->addphospho();
+           cell->proteins.push_back(protp2);
+           Reaction *react;
+           react=new Reaction(cell->proteins[3],prots,cell->proteins[3],protp2,1);
+           cell->reactions.push_back(react);
+           //react=new Reaction(protp,prots,protp,NULL,1);
+           //cell->reactions.push_back(react);
+           Gene *gene=cell->genes[1];
+           cell->addpromotion(gene,protp);
+           gene=cell->genes[0];
+           cell->addpromotion(gene,protp);
+           //react=new Reaction(protp,prots,NULL,NULL,1);
+           //cell->reactions.push_back(react);
+           //      cell->adddimere(protp,prots); */
     }
     stringstream gsout;
     gsout << "graphsys" << ".dot";
@@ -134,7 +133,7 @@ Milieu_System::Milieu_System()
 
 Milieu_System::~Milieu_System()
 {
-    vector<System *>::iterator isys;
+    vector < System * >::iterator isys;
     for (isys = systems.begin(); isys != systems.end(); isys++) {
         delete *isys;
     }
@@ -142,7 +141,7 @@ Milieu_System::~Milieu_System()
 
 Milieu::~Milieu()
 {
-    vector<Cellule *>::iterator icell;
+    vector < Cellule * >::iterator icell;
     for (icell = cellules.begin(); icell != cellules.end(); icell++) {
         delete *icell;
     }
@@ -150,16 +149,15 @@ Milieu::~Milieu()
 
 void Milieu::optimisation()
 {
-    vector<Cellule *>::iterator icell;
+    vector < Cellule * >::iterator icell;
     for (icell = cellules.begin(); icell != cellules.end(); icell++) {
         (*icell)->optievolution();
     }
 }
 
-
 void Milieu_System::optimisation()
 {
-    vector<System *>::iterator isys;
+    vector < System * >::iterator isys;
     for (isys = systems.begin(); isys != systems.end(); isys++) {
         (*isys)->optievolution();
     }
@@ -167,9 +165,10 @@ void Milieu_System::optimisation()
 
 void Milieu::evolution()
 {
-    vector<Cellule *>::iterator icell;
+    vector < Cellule * >::iterator icell;
     if (args_info.lambda_flag) {
-        for (icell = cellules.begin() + pop_size / 2; icell != cellules.end(); icell++) {
+        for (icell = cellules.begin() + pop_size / 2; icell != cellules.end();
+             icell++) {
             (*icell)->evolution();
         }
     } else {
@@ -181,21 +180,20 @@ void Milieu::evolution()
 
 void Milieu_System::evolution()
 {
-    vector<System *>::iterator isys;
+    vector < System * >::iterator isys;
     for (isys = systems.begin() + pop_size / 2; isys != systems.end(); isys++) {
         (*isys)->evolution();
     }
 }
 
-
 void Milieu_System::selection3c()
 {
-    vector<System *>::iterator isys;
-    vector<pthread_t> idths;
+    vector < System * >::iterator isys;
+    vector < pthread_t > idths;
     for (isys = systems.begin(); isys != systems.end(); isys++) {
         if ((*isys)->score == 0) {
             pthread_t idth;
-            System * psys = (*isys);
+            System *psys = (*isys);
             pthread_create(&idth, NULL, calcsys3c_thr, psys);
             idths.push_back(idth);
             if (!args_info.multi_threading_flag) {
@@ -205,37 +203,40 @@ void Milieu_System::selection3c()
         }
     }
     if (args_info.multi_threading_flag) {
-        for (vector<pthread_t>::iterator ipth = idths.begin(); ipth != idths.end(); ipth++) {
+        for (vector < pthread_t >::iterator ipth = idths.begin();
+             ipth != idths.end(); ipth++) {
             pthread_join(*ipth, NULL);
         }
     }
     std::sort(systems.begin(), systems.end(), compsystems);
-    for (isys = systems.begin(); isys != (systems.begin() + pop_size / 2); isys++) {
+    for (isys = systems.begin(); isys != (systems.begin() + pop_size / 2);
+         isys++) {
         delete *(isys + pop_size / 2);
         *(isys + pop_size / 2) = (*isys)->copysystem();
     }
 }
 
-
 void Milieu::selection()
 {
-    vector<Cellule *>::iterator icell;
+    vector < Cellule * >::iterator icell;
     int count = 0;
-    vector<pthread_t> idths;
+    vector < pthread_t > idths;
     for (icell = cellules.begin(); icell != cellules.end(); icell++) {
         if ((*icell)->score < 1e-8) {
             pthread_t idth;
-            Cellule * pcell = *icell;
+            Cellule *pcell = *icell;
             pthread_create(&idth, NULL, calcsc_thr, pcell);
             idths.push_back(idth);
             if (!args_info.multi_threading_flag) {
                 pthread_join(idth, NULL);
             }
         }
-        if ((*icell)->score > 1e8) count++;
+        if ((*icell)->score > 1e8)
+            count++;
     }
     if (args_info.multi_threading_flag) {
-        for (vector<pthread_t>::iterator ipth = idths.begin(); ipth != idths.end(); ipth++) {
+        for (vector < pthread_t >::iterator ipth = idths.begin();
+             ipth != idths.end(); ipth++) {
             pthread_join(*ipth, NULL);
         }
     }
@@ -278,12 +279,14 @@ void Milieu::selection()
     } else {
         std::sort(cellules.begin(), cellules.end(), compcellules);
         if (args_info.lambda_flag) {
-            for (icell = cellules.begin(); icell != (cellules.begin() + pop_size / 2); icell++) {
+            for (icell = cellules.begin();
+                 icell != (cellules.begin() + pop_size / 2); icell++) {
                 delete *(icell + pop_size / 2);
                 *(icell + pop_size / 2) = (*icell)->copycellule();
             }
         } else {
-            for (icell = cellules.begin() + 1; icell != cellules.end(); icell++) {
+            for (icell = cellules.begin() + 1; icell != cellules.end();
+                 icell++) {
                 delete *icell;
                 *icell = (*(cellules.begin()))->copycellule();
             }
@@ -294,27 +297,31 @@ void Milieu::selection()
 
 void Milieu::selection_temp(double temperature)
 {
-    vector<Cellule *>::iterator icell;
+    vector < Cellule * >::iterator icell;
     Milieu milieu;
-    for (icell = milieu.cellules.begin(); icell != milieu.cellules.end(); icell++) {
+    for (icell = milieu.cellules.begin(); icell != milieu.cellules.end();
+         icell++) {
         delete *icell;
     }
     milieu.cellules.clear();
     for (icell = cellules.begin(); icell != cellules.end(); icell++) {
-        if ((*icell)->score == 0)(*icell)->calculscore();
+        if ((*icell)->score == 0)
+            (*icell)->calculscore();
     }
     double scoremin = cellules[0]->score;
     for (icell = cellules.begin(); icell != cellules.end(); icell++) {
-        if ((*icell)->score < scoremin) scoremin = (*icell)->score;
+        if ((*icell)->score < scoremin)
+            scoremin = (*icell)->score;
     }
     for (unsigned int i = 0; i < pop_size / 2; i++) {
-        vector<double> scores;
+        vector < double >scores;
         for (icell = cellules.begin(); icell != cellules.end(); icell++) {
             double scorenorm = (*icell)->score - scoremin;
             scores.push_back(exp(-scorenorm / temperature));
         }
         double tot_score = 0;
-        for (vector<double>::iterator iscore = scores.begin(); iscore != scores.end(); iscore++) {
+        for (vector < double >::iterator iscore = scores.begin();
+             iscore != scores.end(); iscore++) {
             tot_score += *iscore;
         }
         double ncell = tot_score * frand();
@@ -328,13 +335,16 @@ void Milieu::selection_temp(double temperature)
         milieu.cellules.push_back(cellules[j]);
         cellules.erase(cellules.begin() + j);
     }
-    for (icell = cellules.begin(); icell != cellules.end(); icell++) delete *icell;
+    for (icell = cellules.begin(); icell != cellules.end(); icell++)
+        delete *icell;
     cellules.clear();
-    for (icell = milieu.cellules.begin(); icell != milieu.cellules.end(); icell++) {
+    for (icell = milieu.cellules.begin(); icell != milieu.cellules.end();
+         icell++) {
         cellules.push_back(*icell);
     }
     std::sort(cellules.begin(), cellules.end(), compcellules);
-    for (icell = milieu.cellules.begin(); icell != milieu.cellules.end(); icell++) {
+    for (icell = milieu.cellules.begin(); icell != milieu.cellules.end();
+         icell++) {
         cellules.push_back((*icell)->copycellule());
     }
     milieu.cellules.clear();
@@ -342,12 +352,13 @@ void Milieu::selection_temp(double temperature)
 
 void Milieu::optiselection()
 {
-    vector<Cellule *>::iterator icell;
+    vector < Cellule * >::iterator icell;
     for (icell = cellules.begin(); icell != cellules.end(); icell++) {
         (*icell)->opticalculscore();
     }
     std::sort(cellules.begin(), cellules.end(), compcellules);
-    for (icell = cellules.begin(); icell != (cellules.begin() + pop_size / 2); icell++) {
+    for (icell = cellules.begin(); icell != (cellules.begin() + pop_size / 2);
+         icell++) {
         delete *(icell + pop_size / 2);
         *(icell + pop_size / 2) = (*icell)->copycellule();
     }
@@ -355,12 +366,13 @@ void Milieu::optiselection()
 
 void Milieu_System::optiselection()
 {
-    vector<System *>::iterator isys;
+    vector < System * >::iterator isys;
     for (isys = systems.begin(); isys != systems.end(); isys++) {
         (*isys)->opticalculscore();
     }
     std::sort(systems.begin(), systems.end(), compsystems);
-    for (isys = systems.begin(); isys != (systems.begin() + pop_size / 2); isys++) {
+    for (isys = systems.begin(); isys != (systems.begin() + pop_size / 2);
+         isys++) {
         delete *(isys + pop_size / 2);
         *(isys + pop_size / 2) = (*isys)->copysystem();
     }
@@ -375,4 +387,3 @@ bool compsystems(const System * sys1, const System * sys2)
 {
     return (sys1->score < sys2->score);
 };
-

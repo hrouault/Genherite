@@ -32,7 +32,6 @@
 
 using namespace std;
 
-
 #include "cmdline.h"
 #include "cellule.hpp"
 #include "system.hpp"
@@ -40,14 +39,13 @@ using namespace std;
 #include "evolution.hpp"
 #include "integr.hpp"
 
-
 int mode = 0;
 
 void printaftergen(Cellule & cell, int netindex);
 
 void printaftergen(System & sys, int netindex, int mode);
 
-gsl_rng * rndm;
+gsl_rng *rndm;
 
 double frand2()
 {
@@ -81,11 +79,11 @@ vd operator-(const vd & vec1, const vd & vec2)
     return vec;
 }
 
-double
-fabs(const vd & vec)
+double fabs(const vd & vec)
 {
     double res = 0;
-    for (civd iv = vec.begin() + nb_steps + nb_steps / 5; iv != vec.end(); iv++) {
+    for (civd iv = vec.begin() + nb_steps + nb_steps / 5; iv != vec.end();
+         iv++) {
         res += fabs(*iv);
     }
     return res;
@@ -93,14 +91,12 @@ fabs(const vd & vec)
 
 unsigned int nb_cells = 4;
 
-
 vd times_conv;
 unsigned int nb_conv = 0;
 
 bool print_mode = false;
 
-void
-generations(Milieu & milieu)
+void generations(Milieu & milieu)
 {
     mode = 1;
     static unsigned int counter = 0;
@@ -109,13 +105,16 @@ generations(Milieu & milieu)
     for (int ngen = 0; ngen < args_info.nb_generations_arg; ngen++) {
         milieu.evolution();
         milieu.selection();
-        cout << milieu.cellules[0]->score << " " << milieu.cellules[0]->score_auxi << endl;
+        cout << milieu.cellules[0]->score << " " << milieu.cellules[0]->
+            score_auxi << endl;
         if (milieu.cellules[0]->score < 250.0) {
             nb_promoters_max = 50;
             nb_proteins_max = 15;
         }
-        if (ngen > 400 && milieu.cellules[0]->score > 9000.0) break;
-        if (ngen % 100 == 0) printaftergen(*(milieu.cellules[0]), ngen);
+        if (ngen > 400 && milieu.cellules[0]->score > 9000.0)
+            break;
+        if (ngen % 100 == 0)
+            printaftergen(*(milieu.cellules[0]), ngen);
         if (milieu.cellules[0]->score < 2.0) {
             printaftergen(*(milieu.cellules[0]), ngen);
             times_conv.push_back(ngen);
@@ -123,11 +122,11 @@ generations(Milieu & milieu)
             break;
         }
     }
-    cout << 1 << " " << milieu.cellules[0]->promoters.size() << " " << milieu.cellules[0]->proteins.size() << endl;
+    cout << 1 << " " << milieu.cellules[0]->promoters.size() << " " << milieu.
+        cellules[0]->proteins.size() << endl;
 }
 
-int
-generations_system(Milieu_System & milieu)
+int generations_system(Milieu_System & milieu)
 {
     mode = 1;
     //   static unsigned int counter=0;
@@ -154,14 +153,16 @@ generations_system(Milieu_System & milieu)
         if (milieu.systems[0]->score < 1.0) {
             opti_stage = 1;
             printaftergen(*(milieu.systems[0]), ngen, 1);
-            System * sys = milieu.systems[0]->optimisation();
+            System *sys = milieu.systems[0]->optimisation();
             opti_stage = 0;
             cout << "opti done" << endl;
             printaftergen(*sys, ngen, 2);
             int resrecept = 0;
             recept_test = 1;
-            if (nb_cells == 2 && sys->essential_recept()) resrecept++;
-            if (nb_cells == 2) printaftergen(*(sys), 0, 3);
+            if (nb_cells == 2 && sys->essential_recept())
+                resrecept++;
+            if (nb_cells == 2)
+                printaftergen(*(sys), 0, 3);
             print_mode = 1;
             recept_test = 0;
             double final_test = 0;
@@ -188,38 +189,37 @@ generations_system(Milieu_System & milieu)
         }
         //      milieu.systems[0]->printsystem(cout);
         /*      if (milieu.systems[0]->score < 1200.0){
-                 stringstream sout;
-                 sout << "goodintegr" << counter << ".dat";
-                 ofstream fout(sout.str().c_str());
-                 Celleff ceff(*(milieu.systems[0]));
-                 ceff.prtmultistable(fout);
-                 fout.close();
+           stringstream sout;
+           sout << "goodintegr" << counter << ".dat";
+           ofstream fout(sout.str().c_str());
+           Celleff ceff(*(milieu.systems[0]));
+           ceff.prtmultistable(fout);
+           fout.close();
 
-                 stringstream sout2;
-                 sout2 << "goodcell" << counter << ".dot";
-                 ofstream fout2(sout2.str().c_str());
-                 milieu.systems[0]->printgraph(sout2);
-                 fout2.close();
+           stringstream sout2;
+           sout2 << "goodcell" << counter << ".dot";
+           ofstream fout2(sout2.str().c_str());
+           milieu.systems[0]->printgraph(sout2);
+           fout2.close();
 
-                 System * sys=milieu.systems[0]->optimisation();
-                 for (int i=0;i<taille_milieu;i++){
-                    delete milieu.systems[i];
-                 }
-                 milieu.systems[0]=sys;
-                 for (int i=1;i<taille_milieu;i++){
-                    milieu.systems[i]=milieu.systems[0]->copysystem();
-                 }
-                 mode=1;
-                 counter++;
-                 break;
-              }*/
+           System * sys=milieu.systems[0]->optimisation();
+           for (int i=0;i<taille_milieu;i++){
+           delete milieu.systems[i];
+           }
+           milieu.systems[0]=sys;
+           for (int i=1;i<taille_milieu;i++){
+           milieu.systems[i]=milieu.systems[0]->copysystem();
+           }
+           mode=1;
+           counter++;
+           break;
+           } */
     }
     return 0;
 }
 
 ofstream outintegr;
-void
-printaftergen(Cellule & cell, int netindex)
+void printaftergen(Cellule & cell, int netindex)
 {
     stringstream sout;
     sout << "graph" << netindex << ".dot";
@@ -240,8 +240,7 @@ printaftergen(Cellule & cell, int netindex)
     fout3.close();
 }
 
-void
-printaftergen(System & sys, int netindex, int mode)
+void printaftergen(System & sys, int netindex, int mode)
 {
     stringstream sout;
     string suffix;
@@ -271,17 +270,17 @@ printaftergen(System & sys, int netindex, int mode)
     outintegr.close();
     //  sys.prtint3c(fout2);
     /*  double state[ceff.esps.size()];
-      ceff.savestate(state);
-      ceff.prtbiooscill(fout2,final_time);
-      ceff.recoverstate(state);
-      ceff.prtbiooscill(fout2,final_time-2.5);*/
+       ceff.savestate(state);
+       ceff.prtbiooscill(fout2,final_time);
+       ceff.recoverstate(state);
+       ceff.prtbiooscill(fout2,final_time-2.5); */
     /*
-      stringstream sout3;
-      sout3 << "system" << netindex << ".dat";
-      ofstream fout3(sout3.str().c_str());
-      sys.printsystem(fout3);
-      fout3.close();
-    */
+       stringstream sout3;
+       sout3 << "system" << netindex << ".dat";
+       ofstream fout3(sout3.str().c_str());
+       sys.printsystem(fout3);
+       fout3.close();
+     */
 }
 
 struct gengetopt_args_info args_info;
@@ -299,10 +298,10 @@ unsigned int opti_stage = 0;
 
 double t_new_recept = 0;
 
-int main(int argc, char ** argv)
+int main(int argc, char **argv)
 {
     /* Initialisation du générateur de nombres aléatoires */
-    if (cmdline_parser(argc, argv, & args_info) != 0)
+    if (cmdline_parser(argc, argv, &args_info) != 0)
         exit(1);
     behavior = args_info.behavior_arg;
     recept_test = 0;
@@ -312,7 +311,7 @@ int main(int argc, char ** argv)
         anchorsignal = 0;
     }
     unsigned long int seed;
-    FILE * devrandom;
+    FILE *devrandom;
     rndm = gsl_rng_alloc(gsl_rng_default);
     if (args_info.rand_seed_flag) {
         devrandom = fopen("/dev/urandom", "r");
@@ -335,24 +334,24 @@ int main(int argc, char ** argv)
     }
     nb_genes = args_info.nb_genes_arg;
     /*
-    if (behavior==2){
+       if (behavior==2){
        ofstream scores("scores.lst");
        for (int i=0;i<args_info.nb_net_arg;i++){
-          Milieu_System milieu;
-          stringstream comsave;
-          comsave << "./save.sh " << i;
-          cout << comsave.str() << "\n";
-          generations_system(milieu);
-          system(comsave.str().c_str());
-          scores << milieu.systems[0]->score << "\n";
+       Milieu_System milieu;
+       stringstream comsave;
+       comsave << "./save.sh " << i;
+       cout << comsave.str() << "\n";
+       generations_system(milieu);
+       system(comsave.str().c_str());
+       scores << milieu.systems[0]->score << "\n";
        }
        scores.close();
-    } else if (behavior==22){
-    */
+       } else if (behavior==22){
+     */
     if (behavior == 2 || behavior == 22) {
         ofstream scores("scores.lst");
         vd interact_proba;
-        interact_proba.push_back(0); //r1
+        interact_proba.push_back(0);    //r1
         //      interact_proba.push_back(0.05); //r2
         //      interact_proba.push_back(0.1); //r3
         //      interact_proba.push_back(0.25); //r4
@@ -392,7 +391,8 @@ int main(int argc, char ** argv)
                 scores << milieu.systems[0]->score << endl;
                 //         if (converged);
             }
-            cout << t_new_recept << " " << (double)nb_essrecept / (double)nb_converged << " " << nb_converged << endl;
+            cout << t_new_recept << " " << (double) nb_essrecept /
+                (double) nb_converged << " " << nb_converged << endl;
         }
         scores.close();
     } else {

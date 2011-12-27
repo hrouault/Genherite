@@ -26,7 +26,7 @@
 
 using namespace std;
 
-typedef vector<double> vd;
+typedef vector < double >vd;
 typedef vd::iterator ivd;
 typedef vd::const_iterator civd;
 
@@ -53,4 +53,4 @@ extern unsigned int opti_stage;
 
 extern std::ofstream outintegr;
 
-#endif /* _GenHerite_H_ */
+#endif                          /* _GenHerite_H_ */

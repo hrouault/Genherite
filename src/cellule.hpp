@@ -26,79 +26,80 @@
 
 extern int mode;
 
-typedef vector<double> vd;
+typedef vector < double >vd;
 typedef vd::iterator ivd;
 
-class Cellule
-{
-    public:
-        double score;
-        double score_auxi;
-        vector<Protein *> proteins;
-        vector<Gene *> genes;
-        vector<Promoter *> promoters;
-        vector<Arn *> arns;
-        vector<Reaction *> reactions;
+class Cellule {
+  public:
+    double score;
+    double score_auxi;
+    vector < Protein * >proteins;
+    vector < Gene * >genes;
+    vector < Promoter * >promoters;
+    vector < Arn * >arns;
+    vector < Reaction * >reactions;
 
-        Cellule();
-        ~Cellule();
-        Protein * addprotein(double c = frand2(), double q = frand2());
-        Protein * fusion(Protein * prot1, Protein * prot2);
-        Reaction * adddimere(Protein * prot1, Protein * prot2, double c = 0.2 * frand2(),
-                             double q = frand2(), double cdimerisation = frand2());
-        Reaction * addreaction(Espece * react1, Espece * react2, Espece * prod1,
-                               Espece * prod2, double c = frand2());
-        Reaction * addrandreact();
-        void phosphorylation(Protein * prot);
-        void addphospho();
-        Reaction * addrandactiv();
-        Gene * addgene();
-        Promoter * addpromotion(Gene * gene, Protein * prot, double e = frand2() * 0.2,
-                                double t = frand2());
-        void rmreaction(Reaction * r);
-        bool rmrandprot();
-        bool rmrandpromo();
-        bool compprot(Protein & prot1, Protein & prot2);
-        void evolution();
-        bool evolution_modifq();
-        bool evolution_ajout();
-        void optievolution();
-        void calculscore();
-        double scorefunction(vector<double> fonction, vector<double> resultatintegr);
-        double calculscorebistable();
-        double calculscoremultistable();
-        double calculscoremultistable2();
-        double calculscoreporte();
-        double calculscoreoscill();
-        double scorebioscill();
-        Cellule * copycellule();
-        void printgraph(ostream & out);
-        void printinternpart(ostream & out);
-        void printproperties(ostream & out);
-        void printcellule(ostream & out);
-        void printcelluleshort(ostream & out);
-        void printcelluleintegr(ostream & out);
-        void printintegration(ostream & out);
-        //void printintegrationmultistable(ostream &out);
-        void prtbioscill();
-        bool addclivage();
-        Cellule * optimisation();
-        Protein * existe(Protein * prot);
-        Protein * searchcopyprot(Protein * prot);
-        void opticalculscore();
-        /*double calculscoreporteinter();*/
-        int especenum(Espece * pesp);
-        string especestring(Espece * pesp);
-        int reactionnum(Reaction * react);
-        string reactionstring(Reaction * react);
-        void printintegr(ostream & stre, double fint);
-        void copygene(Gene * gene);
+    Cellule();
+    ~Cellule();
+    Protein *addprotein(double c = frand2(), double q = frand2());
+    Protein *fusion(Protein * prot1, Protein * prot2);
+    Reaction *adddimere(Protein * prot1, Protein * prot2, double c =
+                        0.2 * frand2(), double q =
+                        frand2(), double cdimerisation = frand2());
+    Reaction *addreaction(Espece * react1, Espece * react2, Espece * prod1,
+                          Espece * prod2, double c = frand2());
+    Reaction *addrandreact();
+    void phosphorylation(Protein * prot);
+    void addphospho();
+    Reaction *addrandactiv();
+    Gene *addgene();
+    Promoter *addpromotion(Gene * gene, Protein * prot, double e =
+                           frand2() * 0.2, double t = frand2());
+    void rmreaction(Reaction * r);
+    bool rmrandprot();
+    bool rmrandpromo();
+    bool compprot(Protein & prot1, Protein & prot2);
+    void evolution();
+    bool evolution_modifq();
+    bool evolution_ajout();
+    void optievolution();
+    void calculscore();
+    double scorefunction(vector < double >fonction,
+                         vector < double >resultatintegr);
+    double calculscorebistable();
+    double calculscoremultistable();
+    double calculscoremultistable2();
+    double calculscoreporte();
+    double calculscoreoscill();
+    double scorebioscill();
+    Cellule *copycellule();
+    void printgraph(ostream & out);
+    void printinternpart(ostream & out);
+    void printproperties(ostream & out);
+    void printcellule(ostream & out);
+    void printcelluleshort(ostream & out);
+    void printcelluleintegr(ostream & out);
+    void printintegration(ostream & out);
+    //void printintegrationmultistable(ostream &out);
+    void prtbioscill();
+    bool addclivage();
+    Cellule *optimisation();
+    Protein *existe(Protein * prot);
+    Protein *searchcopyprot(Protein * prot);
+    void opticalculscore();
+    /*double calculscoreporteinter(); */
+    int especenum(Espece * pesp);
+    string especestring(Espece * pesp);
+    int reactionnum(Reaction * react);
+    string reactionstring(Reaction * react);
+    void printintegr(ostream & stre, double fint);
+    void copygene(Gene * gene);
 };
 
-typedef vector<Cellule *> vcell;
+typedef vector < Cellule * >vcell;
 
 typedef vcell::iterator ivcell;
 
-void * calcsc_thr(void * cell);
+void *calcsc_thr(void *cell);
 
-#endif /* Cellule_H */
+#endif                          /* Cellule_H */

@@ -34,123 +34,116 @@ class Reaction;
 class Protein;
 class Cellule;
 
-class Espece
-{
-        //type Espece chimique: protéïne, gène ou arn
-    public:
-        double qtite;
-        Espece * copie;
-        string label;
+class Espece {
+    //type Espece chimique: protéïne, gène ou arn
+  public:
+    double qtite;
+    Espece *copie;
+    string label;
 
-        bool contain(Protein * prot, Cellule * cell);
+    bool contain(Protein * prot, Cellule * cell);
 };
 
-class Phosphosite
-{
+class Phosphosite {
 };
 
-class Protein : public Espece
-{
-        //type Protéïne : constante de dégradation et composants (null si un seul)
-    public:
-        double cste;
-        vector<Composant *> composants;
-        Phosphosite * phosphosite;
-        double meanc;
-        int dirinit;
+class Protein:public Espece {
+    //type Protéïne : constante de dégradation et composants (null si un seul)
+  public:
+    double cste;
+     vector < Composant * >composants;
+    Phosphosite *phosphosite;
+    double meanc;
+    int dirinit;
 
-        Protein(double c = frand2(), double q = frand2());
-        ~Protein();
-        void modifdegrad(double ampli = defampli);
-        void addcomposant(Protein * prot);
-        void modifqtite(double ampli = defampli);
-        void clivage(Protein & prot1, Protein & prot2);
-        bool eqprot(Protein * prot);
-        Protein * addphospho();
-        Protein * copyprot();
-        bool contain(Protein * prot);
-        void mutinit();
+     Protein(double c = frand2(), double q = frand2());
+    ~Protein();
+    void modifdegrad(double ampli = defampli);
+    void addcomposant(Protein * prot);
+    void modifqtite(double ampli = defampli);
+    void clivage(Protein & prot1, Protein & prot2);
+    bool eqprot(Protein * prot);
+    Protein *addphospho();
+    Protein *copyprot();
+    bool contain(Protein * prot);
+    void mutinit();
 };
 
-class Composant
-{
-    public:
-        Protein * protein;
-        int nb;
+class Composant {
+  public:
+    Protein * protein;
+    int nb;
 
-        Composant(Protein * prot, int n = 1);
+     Composant(Protein * prot, int n = 1);
 };
 
-class Gene : public Espece
-{
-    public:
-        Arn * arn;
-        double transrate;
+class Gene:public Espece {
+  public:
+    Arn * arn;
+    double transrate;
 
-        Gene();
-        void modiftrans(double ampli = defampli);
+     Gene();
+    void modiftrans(double ampli = defampli);
 };
 
-class Arn : public Espece
-{
-    public:
-        double cste;
-        Gene * gene;
-        Protein * protein;
-        Reaction * translation;
+class Arn:public Espece {
+  public:
+    double cste;
+    Gene *gene;
+    Protein *protein;
+    Reaction *translation;
 
-        Arn(Gene * gen, double c = frand2(), double q = frand2());
-        void modifdegrad(double ampli = defampli);
-        void modifqtite(double ampli = defampli);
+     Arn(Gene * gen, double c = frand2(), double q = frand2());
+    void modifdegrad(double ampli = defampli);
+    void modifqtite(double ampli = defampli);
 };
 
-class Reaction
-{
-        //Reaction chimique:Une constante, deux reactifs,deux produits; null s'ils manquent
-    public:
-        double cste;
-        Espece * reactif1;
-        Espece * reactif2;
-        Espece * produit1;
-        Espece * produit2;
-        Reaction * copie;
+class Reaction {
+    //Reaction chimique:Une constante, deux reactifs,deux produits; null s'ils manquent
+  public:
+    double cste;
+    Espece *reactif1;
+    Espece *reactif2;
+    Espece *produit1;
+    Espece *produit2;
+    Reaction *copie;
 
-        Reaction(Espece * react1, Espece * react2, Espece * prod1, Espece * prod2, double constante = frand2());
-        void modifcinetique(double ampli = defampli);
+     Reaction(Espece * react1, Espece * react2, Espece * prod1, Espece * prod2,
+              double constante = frand2());
+    void modifcinetique(double ampli = defampli);
 };
 
-class Promoter : public Espece
-{
-    public:
-        Gene * gene;
-        Protein * protein;
-        double eqcte;
-        double transrate;
+class Promoter:public Espece {
+  public:
+    Gene * gene;
+    Protein *protein;
+    double eqcte;
+    double transrate;
 
-        Promoter(Gene * gen, Protein * prot);
-        void modifeq(double ampli = defampli);
-        void modiftrans(double ampli = defampli);
+     Promoter(Gene * gen, Protein * prot);
+    void modifeq(double ampli = defampli);
+    void modiftrans(double ampli = defampli);
 };
 
-class Recepteur
-{
-    public:
-        double cste;
-        double a0;
-        Protein * protsource;
-        Protein * protcible;
-        Protein * protphospho;
+class Recepteur {
+  public:
+    double cste;
+    double a0;
+    Protein *protsource;
+    Protein *protcible;
+    Protein *protphospho;
 
-        Recepteur(Protein * prots, Protein * protc, Protein * protp, double c = frand2(), double eqcte = frand2());
-        void modifcinetique(double ampli = frand2());
+     Recepteur(Protein * prots, Protein * protc, Protein * protp, double c =
+               frand2(), double eqcte = frand2());
+    void modifcinetique(double ampli = frand2());
 };
 
-typedef vector<Gene *> vgene;
-typedef vector<Arn *> varn;
-typedef vector<Protein *> vprotein;
-typedef vector<Reaction *> vreaction;
-typedef vector<Promoter *> vpromoter;
-typedef vector<Recepteur *> vrecept;
+typedef vector < Gene * >vgene;
+typedef vector < Arn * >varn;
+typedef vector < Protein * >vprotein;
+typedef vector < Reaction * >vreaction;
+typedef vector < Promoter * >vpromoter;
+typedef vector < Recepteur * >vrecept;
 
 typedef vgene::iterator ivgene;
 typedef varn::iterator ivarn;
@@ -159,4 +152,4 @@ typedef vreaction::iterator ivreaction;
 typedef vpromoter::iterator ivpromoter;
 typedef vrecept::iterator ivrecept;
 
-#endif /* Composants_H */
+#endif                          /* Composants_H */
