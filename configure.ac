@@ -22,7 +22,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.61])
-AC_INIT(Genherite, m4_esyscmd([tools/git-version-gen .tarball-version]),\
+AC_INIT(Genherite, m4_esyscmd([tools/git-version-gen .tarball-version]),
     [rouault@lps.ens.fr])
 AM_INIT_AUTOMAKE()
 
@@ -40,7 +40,7 @@ AM_PROG_CC_C_O
 AC_CHECK_LIB([m],[cos],,[AC_MSG_ERROR([math functions required.])])
 
 ##AX_BLAS( [ AC_MSG_NOTICE( [ blas libs variable : x$BLAS_LIBS BLAS_LIBS ] ) ], )
-AX_BLAS(LIBS="$BLAS_LIBS $LIBS $FLIBS", AC_CHECK_LIB([gslcblas],\
+AX_BLAS(LIBS="$BLAS_LIBS $LIBS $FLIBS", AC_CHECK_LIB([gslcblas],
         [cblas_dgemm], , AC_MSG_ERROR([blas library required.])))
 
 #AX_BLAS([],[AC_MSG_ERROR([blas library required.])])
@@ -55,7 +55,7 @@ AC_CHECK_HEADERS([gsl/gsl_rng.h],[],[AC_MSG_ERROR([gsl headers required.])])
 AC_HEADER_STDBOOL
 
 # Checks for library functions.
-AC_CHECK_FUNCS([floor pow sqrt], [],\
+AC_CHECK_FUNCS([floor pow sqrt], [],
                [AC_MSG_ERROR([floor,pow and sqrt functions required])])
 
 
