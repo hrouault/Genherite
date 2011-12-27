@@ -25,32 +25,32 @@
 
 class System
 {
-   public:
-      double score;
-      Cellule *cellule;
-      vector<Recepteur *> recepteurs;
+    public:
+        double score;
+        Cellule * cellule;
+        vector<Recepteur *> recepteurs;
 
-      vd concinit;
+        vd concinit;
 
-      System();
-      ~System();
-      void evolution();
-      void addrandrecept();
-      System *copysystem();
-      void calculscoresystem();
-      void printintegration(string filename);
-      void prtint3c(ostream & fres);
-      void printgraph(ostream &out);
-      void printinternpart(ostream &out);
-      void printproperties(ostream &out);
-      System *optimisation();
-      void optievolution();
-      void opticalculscore();
-      bool rmrandprot();
-      void printsystem(ostream &out);
-      double calculscoresystem3c();
-      double calculscoresystem2c();
-      int essential_recept();
+        System();
+        ~System();
+        void evolution();
+        void addrandrecept();
+        System * copysystem();
+        void calculscoresystem();
+        void printintegration(string filename);
+        void prtint3c(ostream & fres);
+        void printgraph(ostream & out);
+        void printinternpart(ostream & out);
+        void printproperties(ostream & out);
+        System * optimisation();
+        void optievolution();
+        void opticalculscore();
+        bool rmrandprot();
+        void printsystem(ostream & out);
+        double calculscoresystem3c();
+        double calculscoresystem2c();
+        int essential_recept();
 };
 
 void * calcsys3c_thr(void * system);

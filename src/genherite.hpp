@@ -17,8 +17,8 @@
  * along with Genherite.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _GenHerite_H_ 
-#define _GenHerite_H_ 
+#ifndef _GenHerite_H_
+#define _GenHerite_H_
 
 #include <gsl/gsl_rng.h>
 #include <fstream>
@@ -30,8 +30,8 @@ typedef vector<double> vd;
 typedef vd::iterator ivd;
 typedef vd::const_iterator civd;
 
-vd operator+(const vd & vec1,const vd & vec2);
-vd operator-(const vd & vec1,const vd & vec2);
+vd operator+(const vd & vec1, const vd & vec2);
+vd operator-(const vd & vec1, const vd & vec2);
 
 double fabs(const vd & vec);
 

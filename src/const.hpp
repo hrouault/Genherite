@@ -43,7 +43,7 @@ const double t_new_promo = 0.3;//0.6;//0.05
 const double t_clivage = 0.0;
 const double t_rmreact = 0.2;//0.4;//0.05
 const double t_dupgene = 0.0;
-const double t_mutdir =1.8;
+const double t_mutdir = 1.8;
 
 //const double t_new_r = 0.0;//1.2;//0.1
 //const double t_mod_r = 0.0;//2.0;
@@ -77,7 +77,7 @@ const double seuil_react_inf = 0.1;
 const double seuil_react_sup = 20.0;
 const double seuil_qtite_inf = 0.10;
 const double seuil_qtite_sup = 20.0;
-  
+
 
 //Nombre de pas d'intégration
 extern unsigned int nb_steps;
