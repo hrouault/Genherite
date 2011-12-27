@@ -1,0 +1,62 @@
+#
+# Copyright (C) 2005-2011 Hervé Rouault <rouault@lps.ens.fr>
+# 
+# This file is part of Genherite.
+# 
+# Genherite is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# Genherite is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with Genherite; see the file COPYING  If not, see
+# <http://www.gnu.org/licenses/>.
+#
+     
+purpose  "Genetic algorithm"
+
+     # Options
+
+
+option "pop_size" t "Size of the population (lambda)"
+            int typestr="int" required
+
+option "rand_seed"  u  "Seeding mode of the rng"
+            flag off
+
+option "recept_satur"  e  "Mode of action of the receptors"
+            flag off
+
+option "anchor_signal" a "Presence of the anchor signal in the network"
+            flag off
+
+option "nb_genes" g "Number of genes in each network"
+            int typestr="int" required
+
+option "nb_generations" r "Number of generations"
+            int typestr="int" required
+
+option "nb_net" n "Number of networks"
+            int typestr="int" required
+
+option "multi_threading" m "Use of multi-threading"
+            flag on
+            
+option "behavior" b "Behavior of the network :\n** 0 for a bistable\n\
+** 1 for an oscillator\n\n** 2 for a multistable multicellular\n\
+** 22 for a two-cells bistable network (varying interactions)\n\
+** 3 for gates\n** 4 for multistable monocellular\n\
+** 5 for oscillators and bistable"
+            int typestr="int" required
+
+option "lambda" l "model (1+lambda) vs (lambda+lambda)\n\
+flag on for (lambda+lambda)"
+            flag off
+
+option "simulated_annealing" s   "Simulated annealing"
+   flag off
