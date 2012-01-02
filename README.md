@@ -46,3 +46,8 @@ Run:
 ```
 
 prior to the steps described in the previous paragraph.
+
+Running Genherite
+=================
+
+Run `src/genherite --help` to see the different modes of exectution.
