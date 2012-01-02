@@ -12,9 +12,9 @@ It is programmed in C/C++. Source files can be found in the folder `src`.
 Installation
 ============
 
-You can refer to the `INSTALL` file for detailled installation instructions
-readily available in the tarball. If you use the development version, you will
-need the autotools in order to generate this file and compile the code. 
+You can refer to the `INSTALL` file for detailled installation instructions. This 
+file is readily available in the tarball. If you use the development version, you will
+need the autotools in order to generate it and compile the code. 
 
 Quick install
 -------------
