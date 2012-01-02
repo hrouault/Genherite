@@ -50,11 +50,11 @@ class Celleff {
     void derivqtiteeuler();
     void derivqtiterk4();
     void derivqtite();
-     vector < double >integrbistable(int nprot);
-     vector < double >integrbioscill(Cellule & cell, int state);
+     vector < double > integrbistable(int nprot);
+     vector < double > integrbioscill(Cellule & cell, int state);
     //      vector<double> integr(int nprot);
     Resultatsys integrsys3c(System & sys);
-     vector < vector < double >>integrmultistable(int prot0, int prot1,
+     vector < vector < double > > integrmultistable(int prot0, int prot1,
                                                   int prot2);
      vector < double >integrporte(int nprotA, int nprotX, int nprotY,
                                   bool protX1, bool protY1, bool protX2,

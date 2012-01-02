@@ -1003,7 +1003,7 @@ int Celleff::integrfunc(vd & integrA, vd & integrB, double fintime)
     return 0;
 }
 
-vector < double >Celleff::integrporte(int nprotA, int nprotX, int nprotY,
+vector < double > Celleff::integrporte(int nprotA, int nprotX, int nprotY,
                                       bool protX1, bool protY1, bool protX2,
                                       bool protY2)
 {
@@ -1011,16 +1011,16 @@ vector < double >Celleff::integrporte(int nprotA, int nprotX, int nprotY,
     return resultat;
 }
 
-vector < double >Celleff::integrbistable(int nprot)
+vector < double > Celleff::integrbistable(int nprot)
 {
     vector < double >resultat;
     return resultat;
 }
 
-vector < vector < double >>Celleff::integrmultistable(int prot0, int prot1,
+vector < vector < double > > Celleff::integrmultistable(int prot0, int prot1,
                                                       int prot2)
 {
-    vector < vector < double >>resultat;
+    vector < vector < double > > resultat;
     return resultat;
 }
 
