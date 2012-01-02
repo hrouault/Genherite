@@ -29,16 +29,20 @@ make install
 
 You can control the destination folder by adjusting the `prefix` variable at
 the configure step:
+
 ```sh
 ../configure --prefix=/folder/where/to/install
 ```
+
 see the `INSTALL`file for more informations.
 
 Development version
 -------------------
 
 Run:
+
 ```sh
 ./autogen.sh
 ```
-prior to the steps describe in the previous paragraph.
+
+prior to the steps described in the previous paragraph.
