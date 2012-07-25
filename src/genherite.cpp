@@ -162,7 +162,7 @@ double t_new_recept = 0;
 
 int main(int argc, char **argv)
 {
-    /* Initialisation du générateur de nombres aléatoires */
+    /*  Parse the command line */
     if (cmdline_parser(argc, argv, &args_info) != 0)
         exit(1);
     behavior = args_info.behavior_arg;
@@ -172,6 +172,8 @@ int main(int argc, char **argv)
     } else {
         anchorsignal = 0;
     }
+
+    /* Initialize the random number generator */
     unsigned long int seed;
     FILE *devrandom;
     rndm = gsl_rng_alloc(gsl_rng_default);
@@ -181,11 +183,8 @@ int main(int argc, char **argv)
         fclose(devrandom);
         gsl_rng_set(rndm, seed);
     }
-    if (args_info.recept_satur_flag) {
-        recept_satur = 1;
-    } else {
-        recept_satur = 0;
-    }
+
+    /* Initialise the evolutionary algorithm mode */
     nb_steps = 200;
     if (args_info.lambda_flag) {
         cout << "lambda + lambda" << endl;
