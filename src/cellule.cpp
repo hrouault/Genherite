@@ -523,53 +523,6 @@ Promoter *Cellule::addpromotion(Gene * gene, Protein * prot, double e,
     return promo;
 }
 
-bool Cellule::addclivage()
-{
-    int size = 0;
-    vector < Composant * >::iterator icomp;
-    Protein *protini, *prot;
-    Protein *prot1 = new Protein();
-    Protein *prot2 = new Protein();
-    if (!(proteins.size())) {
-        delete prot1;
-        delete prot2;
-        return false;
-    }
-    int i = (int) (frand() * proteins.size());
-    protini = proteins[i];
-    for (icomp = protini->composants.begin();
-         icomp != protini->composants.end(); icomp++) {
-        size += (*icomp)->nb;
-    }
-    if (size < 2) {
-        delete prot1;
-        delete prot2;
-        return false;
-    }
-    protini->clivage(*prot1, *prot2);
-    if (prot1->composants.empty() || prot2->composants.empty()) {
-        delete prot1;
-        delete prot2;
-        return false;
-    }
-    prot = existe(prot1);
-    if (prot) {
-        delete prot1;
-        prot1 = prot;
-    } else {
-        proteins.push_back(prot1);
-    }
-    prot = existe(prot2);
-    if (prot) {
-        delete prot2;
-        prot2 = prot;
-    } else {
-        proteins.push_back(prot2);
-    }
-    addreaction(protini, NULL, prot1, prot2);
-    return true;
-}
-
 bool Cellule::rmrandpromo()
 {
     if (promoters.size() == 0)
@@ -682,8 +635,8 @@ bool Cellule::evolution_modifq()
 bool Cellule::evolution_ajout()
 {
     //procedure d'evolution
-    const double sommetaux = t_new_r + t_new_promo + t_clivage + t_phospho;
-    const double taux[] = { t_new_r, t_new_promo, t_clivage, t_phospho };
+    const double sommetaux = t_new_r + t_new_promo + t_phospho;
+    const double taux[] = { t_new_r, t_new_promo, t_phospho };
     Gene *randgene;
     Protein *randprot;
     /* Sélection de la modification */
@@ -715,14 +668,6 @@ bool Cellule::evolution_ajout()
         }
         break;
     case 2:
-        //Clivage d'une protéïne
-        if (reactions.size() < nb_reactions_max
-            && proteins.size() < nb_proteins_max - 1) {
-            addclivage();
-            return true;
-        }
-        break;
-    case 3:
         //Ajout d'une phosphorylation
         if (reactions.size() < nb_reactions_max
             && proteins.size() < nb_proteins_max) {
@@ -741,10 +686,10 @@ void Cellule::evolution()
 {
     //procedure d'evolution
     const double sommetaux = t_new_r + t_mod_r + t_mod_pro + t_mod_qtite
-        + t_new_promo + t_clivage + t_rmreact + t_phospho + t_mod_qpromo +
+        + t_new_promo + t_rmreact + t_phospho + t_mod_qpromo +
         t_dupgene + t_mutdir;
     const double taux[] = { t_new_r, t_mod_r, t_mod_pro, t_mod_qtite,
-        t_new_promo, t_clivage, t_rmreact, t_phospho, t_mod_qpromo, t_dupgene,
+        t_new_promo, t_rmreact, t_phospho, t_mod_qpromo, t_dupgene,
             t_mutdir
     };
     Gene *randgene;
@@ -802,14 +747,6 @@ void Cellule::evolution()
             }
             break;
         case 5:
-            //Clivage d'une protéïne
-            if (reactions.size() < nb_reactions_max
-                && proteins.size() < nb_proteins_max - 1) {
-                addclivage();
-                j = 0;
-            }
-            break;
-        case 6:
             //Suppression de réactions
             if (frand() < 0.5) {
                 if (rmrandpromo())
@@ -819,7 +756,7 @@ void Cellule::evolution()
                     j = 0;
             }
             break;
-        case 7:
+        case 6:
             //Ajout d'une phosphorylation
             if (reactions.size() < nb_reactions_max
                 && proteins.size() < nb_proteins_max) {
@@ -830,7 +767,7 @@ void Cellule::evolution()
                 j = 0;
             }
             break;
-        case 8:
+        case 7:
             //Modification des quantités de promoteurs
             if (promoters.size()) {
                 if (frand() < 0.5) {
@@ -845,12 +782,12 @@ void Cellule::evolution()
                 j = 0;
             }
             break;
-        case 9:
+        case 8:
             //Duplication d'un gène
             copygene(genes[(int) (frand() * genes.size())]);
             j = 0;
             break;
-        case 10:
+        case 9:
             //modification du sens des quantités initiales
             proteins[(int) (frand() * proteins.size())]->mutinit();
             j = 0;

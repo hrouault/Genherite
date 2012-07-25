@@ -29,7 +29,6 @@ bin_PROGRAMS = genherite
 genherite_SOURCES = cmdline.c cmdline.h\
 					genherite.cpp genherite.hpp\
 				   	evolution.cpp evolution.hpp\
-				   	system.cpp system.hpp\
 				   	cellule.cpp cellule.hpp\
 				   	integr.cpp integr.hpp\
 				   	composants.cpp composants.hpp

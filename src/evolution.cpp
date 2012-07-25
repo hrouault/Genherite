@@ -84,61 +84,6 @@ Milieu::Milieu()
     }
 }
 
-Milieu_System::Milieu_System()
-{
-    //   concinit.push_back(frand2());
-    //   concinit.push_back(frand2());
-    double value1 = frand2();
-    double value2 = frand2();
-    /*   if (value1<value2){
-       value1/=4;
-       value2*=4;
-       } else {
-       value2/=4;
-       value1*=4;
-       } */
-    System *sys;
-    for (unsigned int i = 0; i < pop_size; i++) {
-        sys = new System();
-        sys->concinit.push_back(value1);
-        sys->concinit.push_back(value2);
-        systems.push_back(sys);
-        /*      Cellule *cell=sys->cellule;
-           Protein *prots=cell->proteins[1];
-           Protein *protc=cell->proteins[0];
-           Protein *protp=protc->addphospho();
-           cell->proteins.push_back(protp);
-           sys->recepteurs.push_back(new Recepteur(prots,protc,protp));
-           Protein *protp2=prots->addphospho();
-           cell->proteins.push_back(protp2);
-           Reaction *react;
-           react=new Reaction(cell->proteins[3],prots,cell->proteins[3],protp2,1);
-           cell->reactions.push_back(react);
-           //react=new Reaction(protp,prots,protp,NULL,1);
-           //cell->reactions.push_back(react);
-           Gene *gene=cell->genes[1];
-           cell->addpromotion(gene,protp);
-           gene=cell->genes[0];
-           cell->addpromotion(gene,protp);
-           //react=new Reaction(protp,prots,NULL,NULL,1);
-           //cell->reactions.push_back(react);
-           //      cell->adddimere(protp,prots); */
-    }
-    stringstream gsout;
-    gsout << "graphsys" << ".dot";
-    ofstream fout(gsout.str().c_str());
-    systems[0]->printgraph(fout);
-    fout.close();
-}
-
-Milieu_System::~Milieu_System()
-{
-    vector < System * >::iterator isys;
-    for (isys = systems.begin(); isys != systems.end(); isys++) {
-        delete *isys;
-    }
-}
-
 Milieu::~Milieu()
 {
     vector < Cellule * >::iterator icell;
@@ -155,14 +100,6 @@ void Milieu::optimisation()
     }
 }
 
-void Milieu_System::optimisation()
-{
-    vector < System * >::iterator isys;
-    for (isys = systems.begin(); isys != systems.end(); isys++) {
-        (*isys)->optievolution();
-    }
-}
-
 void Milieu::evolution()
 {
     vector < Cellule * >::iterator icell;
@@ -175,44 +112,6 @@ void Milieu::evolution()
         for (icell = cellules.begin() + 1; icell != cellules.end(); icell++) {
             (*icell)->evolution();
         }
-    }
-}
-
-void Milieu_System::evolution()
-{
-    vector < System * >::iterator isys;
-    for (isys = systems.begin() + pop_size / 2; isys != systems.end(); isys++) {
-        (*isys)->evolution();
-    }
-}
-
-void Milieu_System::selection3c()
-{
-    vector < System * >::iterator isys;
-    vector < pthread_t > idths;
-    for (isys = systems.begin(); isys != systems.end(); isys++) {
-        if ((*isys)->score == 0) {
-            pthread_t idth;
-            System *psys = (*isys);
-            pthread_create(&idth, NULL, calcsys3c_thr, psys);
-            idths.push_back(idth);
-            if (!args_info.multi_threading_flag) {
-                pthread_join(idth, NULL);
-            }
-            //         (*isys)->calculscoresystem3c();
-        }
-    }
-    if (args_info.multi_threading_flag) {
-        for (vector < pthread_t >::iterator ipth = idths.begin();
-             ipth != idths.end(); ipth++) {
-            pthread_join(*ipth, NULL);
-        }
-    }
-    std::sort(systems.begin(), systems.end(), compsystems);
-    for (isys = systems.begin(); isys != (systems.begin() + pop_size / 2);
-         isys++) {
-        delete *(isys + pop_size / 2);
-        *(isys + pop_size / 2) = (*isys)->copysystem();
     }
 }
 
@@ -364,26 +263,7 @@ void Milieu::optiselection()
     }
 }
 
-void Milieu_System::optiselection()
-{
-    vector < System * >::iterator isys;
-    for (isys = systems.begin(); isys != systems.end(); isys++) {
-        (*isys)->opticalculscore();
-    }
-    std::sort(systems.begin(), systems.end(), compsystems);
-    for (isys = systems.begin(); isys != (systems.begin() + pop_size / 2);
-         isys++) {
-        delete *(isys + pop_size / 2);
-        *(isys + pop_size / 2) = (*isys)->copysystem();
-    }
-}
-
 bool compcellules(const Cellule * cell1, const Cellule * cell2)
 {
     return (cell1->score < cell2->score);
-};
-
-bool compsystems(const System * sys1, const System * sys2)
-{
-    return (sys1->score < sys2->score);
 };

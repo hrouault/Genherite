@@ -61,7 +61,6 @@ class Protein:public Espece {
     void modifdegrad(double ampli = defampli);
     void addcomposant(Protein * prot);
     void modifqtite(double ampli = defampli);
-    void clivage(Protein & prot1, Protein & prot2);
     bool eqprot(Protein * prot);
     Protein *addphospho();
     Protein *copyprot();

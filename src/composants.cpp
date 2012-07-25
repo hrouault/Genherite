@@ -292,24 +292,6 @@ void Arn::modifqtite(double ampli)
         qtite = seuil_qtite_sup;
 }
 
-void Protein::clivage(Protein & prot1, Protein & prot2)
-{
-    int i, size;
-    vector < Composant * >::iterator icomp;
-    for (icomp = composants.begin(); icomp != composants.end(); icomp++) {
-        size = (*icomp)->nb;
-        i = (int) ((size + 1) * frand());
-        if (i) {
-            prot1.composants.push_back(new Composant((*icomp)->protein, i));
-        }
-        if (size - i) {
-            prot2.
-                composants.push_back(new
-                                     Composant((*icomp)->protein, size - i));
-        }
-    }
-}
-
 Protein *Protein::addphospho()
 {
     vector < Composant * >::iterator icomp;

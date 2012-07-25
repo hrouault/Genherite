@@ -27,7 +27,6 @@
 using namespace std;
 
 #include "cellule.hpp"
-#include "system.hpp"
 
 class Reacteff;
 class Especeeff;
@@ -46,20 +45,17 @@ class Celleff {
     vd concinit;
 
      Celleff(Cellule & cell);
-     Celleff(System & system);
     void derivqtiteeuler();
     void derivqtiterk4();
     void derivqtite();
      vector < double > integrbistable(int nprot);
      vector < double > integrbioscill(Cellule & cell, int state);
     //      vector<double> integr(int nprot);
-    Resultatsys integrsys3c(System & sys);
      vector < vector < double > > integrmultistable(int prot0, int prot1,
                                                   int prot2);
      vector < double >integrporte(int nprotA, int nprotX, int nprotY,
                                   bool protX1, bool protY1, bool protX2,
                                   bool protY2);
-    int integrsys3c(System & sys, Resultatsys & res, vd conci);
     int integrfunc(vd & integrA, vd & integrB, double fintime);
     int integrunifunc(double result1[], double fintime);
     double scorebiooscill(double finosc, double valstate);
@@ -167,14 +163,6 @@ class Initconc {
     double cell2;
     double cell3;
     double cell4;
-};
-
-class Integrsys {
-  public:
-    gsl_odeiv_step * step;
-    gsl_odeiv_control *control;
-    gsl_odeiv_evolve *evolve;
-    gsl_odeiv_system system;
 };
 
 double mini(double d1, double d2);

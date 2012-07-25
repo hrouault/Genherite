@@ -21,7 +21,6 @@
 #define _Evolution_H_
 
 #include "cellule.hpp"
-#include "system.hpp"
 
 class Milieu {
   public:
@@ -37,22 +36,6 @@ class Milieu {
     void optiselection();
 };
 
-class Milieu_System {
-  public:
-    vector < System * >systems;
-    vd concinit;
-
-     Milieu_System();
-    ~Milieu_System();
-    void evolution();
-    void selection();
-    void selection3c();
-    void selection_temp(double temperature);
-    void optimisation();
-    void optiselection();
-};
-
 bool compcellules(const Cellule * cell1, const Cellule * cell2);
-bool compsystems(const System * sys1, const System * sys2);
 
 #endif                          /* _Evolution_hpp_ */

@@ -82,7 +82,6 @@ class Cellule {
     void printintegration(ostream & out);
     //void printintegrationmultistable(ostream &out);
     void prtbioscill();
-    bool addclivage();
     Cellule *optimisation();
     Protein *existe(Protein * prot);
     Protein *searchcopyprot(Protein * prot);
