@@ -1201,9 +1201,6 @@ void Cellule::calculscore()
         //         s+=1.0*proteins.size();
         //         s+=1.0*promoters.size();
         break;
-    case 3:
-        s = ceff.scorelogicgate();
-        break;
     }
     if (s != s)
         score = 1.0e10;
