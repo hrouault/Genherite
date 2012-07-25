@@ -38,8 +38,6 @@ using namespace std;
 #include "evolution.hpp"
 #include "integr.hpp"
 
-int mode = 0;
-
 void printaftergen(Cellule & cell, int netindex);
 
 gsl_rng *rndm;
@@ -95,10 +93,11 @@ bool print_mode = false;
 
 void generations(Milieu & milieu)
 {
-    mode = 1;
     static unsigned int counter = 0;
+
     nb_promoters_max = 8;
     nb_proteins_max = 12;
+
     for (int ngen = 0; ngen < args_info.nb_generations_arg; ngen++) {
         milieu.evolution();
         milieu.selection();
@@ -195,6 +194,7 @@ int main(int argc, char **argv)
     }
     nb_genes = args_info.nb_genes_arg;
 
+    /* Start the evolution */
     ofstream scores("scores.lst");
     for (int i = 0; i < args_info.nb_net_arg; i++) {
         Milieu milieu;

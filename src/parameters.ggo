@@ -29,9 +29,6 @@ option "pop_size" t "Size of the population (lambda)"
 option "rand_seed"  u  "Seeding mode of the rng"
             flag off
 
-option "recept_satur"  e  "Mode of action of the receptors"
-            flag off
-
 option "anchor_signal" a "Presence of the anchor signal in the network"
             flag off
 
@@ -48,15 +45,9 @@ option "multi_threading" m "Use of multi-threading"
             flag on
             
 option "behavior" b "Behavior of the network :\n** 0 for a bistable\n\
-** 1 for an oscillator\n\n** 2 for a multistable multicellular\n\
-** 22 for a two-cells bistable network (varying interactions)\n\
-** 3 for gates\n** 4 for multistable monocellular\n\
-** 5 for oscillators and bistable"
+** 1 for an oscillator\n"
             int typestr="int" required
 
 option "lambda" l "model (1+lambda) vs (lambda+lambda)\n\
 flag on for (lambda+lambda)"
             flag off
-
-option "simulated_annealing" s   "Simulated annealing"
-   flag off

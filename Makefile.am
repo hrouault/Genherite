@@ -26,7 +26,7 @@ $(top_srcdir)/.version:
 dist-hook:
 
 
-SUBDIRS = src doc
+SUBDIRS = src doc cython_wrap
 
 EXTRA_DIST = autogen.sh
 

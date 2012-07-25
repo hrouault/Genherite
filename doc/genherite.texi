@@ -80,8 +80,24 @@ This manual is for Genherite
 
 @menu
 * Copying::
+* Algorithm::
 * Index::
 @end menu
+
+@node Algorithm
+@chapter Algorithm
+@section Evolutionary algorithm
+
+The algorithm starts with $\lambda$ empty networks and duplicate them once. One
+round of mutation is then applied to all the duplicated networks. All the
+networks are then scored and the $\lambda$ best are retained while the others
+are discarded. The algorithm then proceed to another round of duplication,
+mutation and scoring and so on.
+
+@section Command line options
+
+@subsection Nb generations
+...
 
 @node Copying
 @appendix Copying This Manual

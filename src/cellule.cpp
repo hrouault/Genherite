@@ -684,17 +684,15 @@ bool Cellule::evolution_ajout()
 
 void Cellule::evolution()
 {
-    //procedure d'evolution
+    // evolutionary process
     const double sommetaux = t_new_r + t_mod_r + t_mod_pro + t_mod_qtite
-        + t_new_promo + t_rmreact + t_phospho + t_mod_qpromo +
-        t_dupgene + t_mutdir;
+        + t_new_promo + t_rmreact + t_phospho + t_mod_qpromo + t_mutdir;
     const double taux[] = { t_new_r, t_mod_r, t_mod_pro, t_mod_qtite,
-        t_new_promo, t_rmreact, t_phospho, t_mod_qpromo, t_dupgene,
-            t_mutdir
+        t_new_promo, t_rmreact, t_phospho, t_mod_qpromo, t_mutdir
     };
     Gene *randgene;
     Protein *randprot;
-    /* Sélection de la modification */
+    /* Modification selection */
     int j = 1;
     while (j) {
         double r = frand() * sommetaux;
@@ -707,7 +705,7 @@ void Cellule::evolution()
         i--;
         switch (i) {
         case 0:
-            //Dimérisation
+            // Dimer formation
             if (reactions.size() < nb_reactions_max
                 && proteins.size() < nb_proteins_max) {
                 addrandreact();
@@ -715,12 +713,12 @@ void Cellule::evolution()
             }
             break;
         case 1:
-            //Modif réaction
+            // Reaction parameter modification
             reactions[(int) (frand() * reactions.size())]->modifcinetique();
             j = 0;
             break;
         case 2:
-            //Modif dégradation
+            // Protein degradation modification
             if (frand() < 0.8)
                 proteins[(int) (frand() * proteins.size())]->modifdegrad();
             else
@@ -728,7 +726,7 @@ void Cellule::evolution()
             j = 0;
             break;
         case 3:
-            //Modif quantités
+            // Initial quantity modification
             if (frand() < 0.2)
                 arns[(int) (frand() * arns.size())]->modifqtite();
             else
@@ -736,10 +734,9 @@ void Cellule::evolution()
             j = 0;
             break;
         case 4:
-            //Ajout d'une promotion
+            // New promotion
             if (reactions.size() < nb_reactions_max - 2
                 && promoters.size() < nb_promoters_max) {
-                //               cout << "addpromo" << endl;
                 randgene = genes[(int) (frand() * genes.size())];
                 randprot = proteins[(int) (frand() * proteins.size())];
                 addpromotion(randgene, randprot);
@@ -747,7 +744,7 @@ void Cellule::evolution()
             }
             break;
         case 5:
-            //Suppression de réactions
+            // Reaction removal
             if (frand() < 0.5) {
                 if (rmrandpromo())
                     j = 0;
@@ -757,7 +754,7 @@ void Cellule::evolution()
             }
             break;
         case 6:
-            //Ajout d'une phosphorylation
+            // Phosphorylation
             if (reactions.size() < nb_reactions_max
                 && proteins.size() < nb_proteins_max) {
                 if (frand() < 0.5)
@@ -768,7 +765,7 @@ void Cellule::evolution()
             }
             break;
         case 7:
-            //Modification des quantités de promoteurs
+            // Promoter parameter modification
             if (promoters.size()) {
                 if (frand() < 0.5) {
                     promoters[(int) (frand() * promoters.size())]->modifeq();
@@ -783,11 +780,6 @@ void Cellule::evolution()
             }
             break;
         case 8:
-            //Duplication d'un gène
-            copygene(genes[(int) (frand() * genes.size())]);
-            j = 0;
-            break;
-        case 9:
             //modification du sens des quantités initiales
             proteins[(int) (frand() * proteins.size())]->mutinit();
             j = 0;
@@ -1161,9 +1153,7 @@ void Cellule::printcelluleintegr(ostream & out)
 
 void *calcsc_thr(void *cell)
 {
-    Cellule *pcell = (Cellule *) cell;
-    Cellule & ce = *pcell;
-    ce.calculscore();
+    ((Cellule *)cell) -> calculscore();
     return 0;
 }
 
@@ -1174,11 +1164,6 @@ void Cellule::calculscore()
     Celleff ceff = Celleff(*this);
     vd scores;
     switch (args_info.behavior_arg) {
-    case 4:
-        s = ceff.scoremultistable();
-        s += 1.0 * proteins.size();
-        s += 1.0 * promoters.size();
-        break;
     case 0:
         s = ceff.scorebistable2();
         //         s+=1.0*proteins.size();
@@ -1191,16 +1176,6 @@ void Cellule::calculscore()
         //         s+=1.0*proteins.size();
         //         s+=1.0*promoters.size();
         break;
-    case 6:
-        s = ceff.scoremonostable();
-        //         s+=1.0*proteins.size();
-        //         s+=1.0*promoters.size();
-        break;
-    case 7:
-        s = ceff.scoretristagrad();
-        //         s+=1.0*proteins.size();
-        //         s+=1.0*promoters.size();
-        break;
     }
     if (s != s)
         score = 1.0e10;
@@ -1208,11 +1183,6 @@ void Cellule::calculscore()
         score = s;
         score_auxi = sca;
     }
-    //
-    //   if (score< 12000.0){
-    //       nb_proteins_max=8;
-    //       nb_promoters_max=4;
-    //    }
 }
 
 void Cellule::printintegr(ostream & stre, double fint)

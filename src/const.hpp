@@ -27,8 +27,6 @@ const unsigned int nb_reactions_max = 80;
 const unsigned int nb_recepteurs_max = 3;
 //const unsigned int nb_recepteurs_max = 8;
 
-extern int mode;
-
 // Taux relatifs de modifications aléatoires
 
 const double t_new_r = 1.2;     //0.1
@@ -40,7 +38,6 @@ const double t_mod_recept = 2.0;
 const double t_phospho = 1.2;   //0.1
 const double t_new_promo = 0.3; //0.6;//0.05
 const double t_rmreact = 0.2;   //0.4;//0.05
-const double t_dupgene = 0.0;
 const double t_mutdir = 1.8;
 
 extern double t_new_recept;     //0.4;

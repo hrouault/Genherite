@@ -80,13 +80,11 @@ class Cellule {
     void printcelluleshort(ostream & out);
     void printcelluleintegr(ostream & out);
     void printintegration(ostream & out);
-    //void printintegrationmultistable(ostream &out);
     void prtbioscill();
     Cellule *optimisation();
     Protein *existe(Protein * prot);
     Protein *searchcopyprot(Protein * prot);
     void opticalculscore();
-    /*double calculscoreporteinter(); */
     int especenum(Espece * pesp);
     string especestring(Espece * pesp);
     int reactionnum(Reaction * react);

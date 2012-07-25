@@ -36,6 +36,8 @@ AC_PROG_CXX
 AC_PROG_CC
 AM_PROG_CC_C_O
 
+LT_INIT([dlopen])
+
 # Checks for libraries.
 AC_CHECK_LIB([m],[cos],,[AC_MSG_ERROR([math functions required.])])
 
@@ -58,9 +60,12 @@ AC_HEADER_STDBOOL
 AC_CHECK_FUNCS([floor pow sqrt], [],
                [AC_MSG_ERROR([floor,pow and sqrt functions required])])
 
+# Check for python
+AM_PATH_PYTHON([2.5],,[AC_MSG_ERROR([no python version >=2.5 detected])])
 
 AC_CONFIG_FILES([Makefile
                  doc/Makefile
-                 src/Makefile])
+                 src/Makefile
+                 cython_wrap/Makefile])
 
 AC_OUTPUT

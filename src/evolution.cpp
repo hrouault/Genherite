@@ -139,59 +139,20 @@ void Milieu::selection()
             pthread_join(*ipth, NULL);
         }
     }
-    if (args_info.simulated_annealing_flag) {
-        double beta = 1.0;
-        unsigned int nbcells = 0;
-        vcell copy1(cellules);
-        vcell copy2;
-        while (nbcells < pop_size / 2) {
-            vd probs;
-            double z = 0;
-            ivcell ic;
-            for (ic = copy1.begin(); ic != copy1.end(); ic++) {
-                double prob = exp(-(*ic)->score * beta + 50);
-                probs.push_back(prob);
-                z += prob;
-            }
-            int cell = 0;
-            double rand_cell = z * frand();
-            double cursor = 0;
-            ic = copy1.begin();
-            while (cursor < rand_cell) {
-                cursor += probs[cell];
-                cell++;
-                ic++;
-            }
-            ic--;
-            copy2.push_back(*ic);
-            copy1.erase(ic);
-            nbcells++;
-        }
-        for (ivcell ic = copy1.begin(); ic != copy1.end(); ic++) {
-            delete *ic;
-        }
-        cellules.clear();
-        for (ivcell ic = copy2.begin(); ic != copy2.end(); ic++) {
-            cellules.push_back(*ic);
-            cellules.push_back((*ic)->copycellule());
+    std::sort(cellules.begin(), cellules.end(), compcellules);
+    if (args_info.lambda_flag) {
+        for (icell = cellules.begin();
+             icell != (cellules.begin() + pop_size / 2); icell++) {
+            delete *(icell + pop_size / 2);
+            *(icell + pop_size / 2) = (*icell)->copycellule();
         }
     } else {
-        std::sort(cellules.begin(), cellules.end(), compcellules);
-        if (args_info.lambda_flag) {
-            for (icell = cellules.begin();
-                 icell != (cellules.begin() + pop_size / 2); icell++) {
-                delete *(icell + pop_size / 2);
-                *(icell + pop_size / 2) = (*icell)->copycellule();
-            }
-        } else {
-            for (icell = cellules.begin() + 1; icell != cellules.end();
-                 icell++) {
-                delete *icell;
-                *icell = (*(cellules.begin()))->copycellule();
-            }
+        for (icell = cellules.begin() + 1; icell != cellules.end();
+             icell++) {
+            delete *icell;
+            *icell = (*(cellules.begin()))->copycellule();
         }
     }
-    //(*(cellules.begin()))->prtbioscill();
 }
 
 void Milieu::selection_temp(double temperature)
